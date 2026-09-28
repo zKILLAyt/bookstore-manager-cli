@@ -21,7 +21,12 @@
   },
   "homepage": "https://github.com/zKILLAyt/bookstore-manager-cli#readme",
   "devDependencies": {
+    "@types/pg": "^8.23.1",
     "tsx": "^4.23.15",
     "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "dotenv": "^18.0.4",
+    "pg": "^8.23.0"
   }
 }
