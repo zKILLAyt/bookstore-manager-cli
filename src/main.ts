@@ -18,6 +18,13 @@ import { EmprestimoRepository } from "./repositories/EmprestimoRepository";
 import { EmprestimoService } from "./services/EmprestimoService";
 import { EmprestimoMenu } from "./menus/EmprestimoMenu";
 
+import { RelatorioController } from "./controllers/RelatorioController";
+import { RelatorioRepository } from "./repositories/RelatorioRepository";
+import { RelatorioService } from "./services/RelatorioService";
+import { RelatorioMenu } from "./menus/RelatorioMenu";
+
+import { MainMenu } from "./menus/MainMenu";
+
 async function main(): Promise<void> {
   const autorRepository = new AutorRepository();
   const autorService = new AutorService(autorRepository);
@@ -43,12 +50,23 @@ async function main(): Promise<void> {
   );
 
   const emprestimoController = new EmprestimoController(emprestimoService);
+
   const emprestimoMenu = new EmprestimoMenu(emprestimoController);
 
-  await autorMenu.iniciar();
-  await livroMenu.iniciar();
-  await clienteMenu.iniciar();
-  await emprestimoMenu.iniciar();
+  const relatorioRepository = new RelatorioRepository();
+  const relatorioService = new RelatorioService(relatorioRepository);
+  const relatorioController = new RelatorioController(relatorioService);
+  const relatorioMenu = new RelatorioMenu(relatorioController);
+
+  const mainMenu = new MainMenu(
+    autorMenu,
+    livroMenu,
+    clienteMenu,
+    emprestimoMenu,
+    relatorioMenu,
+  );
+
+  await mainMenu.iniciar();
 }
 
 main();
