@@ -12,7 +12,8 @@ export class RelatorioRepository {
        INNER JOIN autores
          ON livros.autor_id = autores.id
        WHERE livros.quantidade > 0
-       ORDER BY livros.titulo`,
+       ORDER BY livros.titulo
+       LIMIT 100`,
     );
 
     return result.rows;
@@ -34,7 +35,8 @@ export class RelatorioRepository {
        INNER JOIN clientes
          ON emprestimos.cliente_id = clientes.id
        WHERE emprestimos.data_devolucao IS NULL
-       ORDER BY emprestimos.data_emprestimo`,
+       ORDER BY emprestimos.data_emprestimo
+       LIMIT 100`,
     );
 
     return result.rows;
@@ -50,7 +52,8 @@ export class RelatorioRepository {
        FROM autores
        LEFT JOIN livros
          ON livros.autor_id = autores.id
-       ORDER BY autores.nome, livros.titulo`,
+       ORDER BY autores.nome, livros.titulo
+       LIMIT 100`,
     );
 
     return result.rows;
@@ -66,7 +69,8 @@ export class RelatorioRepository {
        LEFT JOIN emprestimos
          ON emprestimos.livro_id = livros.id
        GROUP BY livros.id, livros.titulo
-       ORDER BY quantidade_emprestimos DESC, livros.titulo`,
+       ORDER BY quantidade_emprestimos DESC, livros.titulo
+       LIMIT 100`,
     );
 
     return result.rows;
@@ -83,7 +87,8 @@ export class RelatorioRepository {
          ON emprestimos.cliente_id = clientes.id
        WHERE emprestimos.data_devolucao IS NULL
        GROUP BY clientes.id, clientes.nome
-       ORDER BY quantidade_emprestimos DESC, clientes.nome`,
+       ORDER BY quantidade_emprestimos DESC, clientes.nome
+       LIMIT 100`,
     );
 
     return result.rows;
