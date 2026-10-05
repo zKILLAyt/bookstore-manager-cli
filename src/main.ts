@@ -24,49 +24,61 @@ import { RelatorioService } from "./services/RelatorioService";
 import { RelatorioMenu } from "./menus/RelatorioMenu";
 
 import { MainMenu } from "./menus/MainMenu";
+import { pool } from "./database/connection";
 
 async function main(): Promise<void> {
-  const autorRepository = new AutorRepository();
-  const autorService = new AutorService(autorRepository);
-  const autorController = new AutorController(autorService);
-  const autorMenu = new AutorMenu(autorController);
+  try {
+    await pool.query("SELECT 1");
 
-  const livroRepository = new LivroRepository();
-  const livroService = new LivroService(livroRepository, autorRepository);
-  const livroController = new LivroController(livroService);
-  const livroMenu = new LivroMenu(livroController);
+    const autorRepository = new AutorRepository();
+    const autorService = new AutorService(autorRepository);
+    const autorController = new AutorController(autorService);
+    const autorMenu = new AutorMenu(autorController);
 
-  const clienteRepository = new ClienteRepository();
-  const clienteService = new ClienteService(clienteRepository);
-  const clienteController = new ClienteController(clienteService);
-  const clienteMenu = new ClienteMenu(clienteController);
+    const livroRepository = new LivroRepository();
+    const livroService = new LivroService(livroRepository, autorRepository);
+    const livroController = new LivroController(livroService);
+    const livroMenu = new LivroMenu(livroController);
 
-  const emprestimoRepository = new EmprestimoRepository();
+    const clienteRepository = new ClienteRepository();
+    const clienteService = new ClienteService(clienteRepository);
+    const clienteController = new ClienteController(clienteService);
+    const clienteMenu = new ClienteMenu(clienteController);
 
-  const emprestimoService = new EmprestimoService(
-    emprestimoRepository,
-    livroRepository,
-    clienteRepository,
-  );
+    const emprestimoRepository = new EmprestimoRepository();
 
-  const emprestimoController = new EmprestimoController(emprestimoService);
+    const emprestimoService = new EmprestimoService(
+      emprestimoRepository,
+      livroRepository,
+      clienteRepository,
+    );
 
-  const emprestimoMenu = new EmprestimoMenu(emprestimoController);
+    const emprestimoController = new EmprestimoController(emprestimoService);
+    const emprestimoMenu = new EmprestimoMenu(emprestimoController);
 
-  const relatorioRepository = new RelatorioRepository();
-  const relatorioService = new RelatorioService(relatorioRepository);
-  const relatorioController = new RelatorioController(relatorioService);
-  const relatorioMenu = new RelatorioMenu(relatorioController);
+    const relatorioRepository = new RelatorioRepository();
+    const relatorioService = new RelatorioService(relatorioRepository);
+    const relatorioController = new RelatorioController(relatorioService);
+    const relatorioMenu = new RelatorioMenu(relatorioController);
 
-  const mainMenu = new MainMenu(
-    autorMenu,
-    livroMenu,
-    clienteMenu,
-    emprestimoMenu,
-    relatorioMenu,
-  );
+    const mainMenu = new MainMenu(
+      autorMenu,
+      livroMenu,
+      clienteMenu,
+      emprestimoMenu,
+      relatorioMenu,
+    );
 
-  await mainMenu.iniciar();
+    await mainMenu.iniciar();
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(`Erro ao iniciar a aplicação: ${error.message}`);
+    } else {
+      console.error("Erro inesperado ao iniciar a aplicação.");
+    }
+  } finally {
+    await pool.end();
+  }
 }
 
 main();

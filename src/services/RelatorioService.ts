@@ -1,4 +1,11 @@
-import { RelatorioRepository } from "../repositories/RelatorioRepository";
+import {
+  ClienteComEmprestimosAtivos,
+  LivroDisponivel,
+  LivroEmprestado,
+  LivroPorAutor,
+  QuantidadeEmprestimosPorLivro,
+  RelatorioRepository,
+} from "../repositories/RelatorioRepository";
 
 export class RelatorioService {
   private readonly relatorioRepository: RelatorioRepository;
@@ -7,23 +14,27 @@ export class RelatorioService {
     this.relatorioRepository = relatorioRepository;
   }
 
-  async listarLivrosDisponiveis(): Promise<unknown[]> {
+  async listarLivrosDisponiveis(): Promise<LivroDisponivel[]> {
     return this.relatorioRepository.listarLivrosDisponiveis();
   }
 
-  async listarLivrosEmprestados(): Promise<unknown[]> {
+  async listarLivrosEmprestados(): Promise<LivroEmprestado[]> {
     return this.relatorioRepository.listarLivrosEmprestados();
   }
 
-  async listarLivrosPorAutor(): Promise<unknown[]> {
+  async listarLivrosPorAutor(): Promise<LivroPorAutor[]> {
     return this.relatorioRepository.listarLivrosPorAutor();
   }
 
-  async listarQuantidadeEmprestimosPorLivro(): Promise<unknown[]> {
+  async listarQuantidadeEmprestimosPorLivro(): Promise<
+    QuantidadeEmprestimosPorLivro[]
+  > {
     return this.relatorioRepository.listarQuantidadeEmprestimosPorLivro();
   }
 
-  async listarClientesComEmprestimosAtivos(): Promise<unknown[]> {
+  async listarClientesComEmprestimosAtivos(): Promise<
+    ClienteComEmprestimosAtivos[]
+  > {
     return this.relatorioRepository.listarClientesComEmprestimosAtivos();
   }
 }

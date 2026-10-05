@@ -4,6 +4,10 @@ Sistema CLI de gerenciamento de livraria desenvolvido com Node.js, TypeScript e 
 
 O sistema permite gerenciar autores, livros, clientes e empréstimos, além de disponibilizar relatórios sobre os dados cadastrados.
 
+## Objetivo
+
+O objetivo do projeto é desenvolver uma aplicação de linha de comando para gerenciamento de uma livraria, permitindo o cadastro e gerenciamento de autores, livros e clientes, o controle de empréstimos e devoluções e a consulta de relatórios sobre os dados armazenados.
+
 ## Tecnologias utilizadas
 
 - Node.js
@@ -237,6 +241,58 @@ Os relatórios utilizam consultas relacionais ao banco de dados, incluindo:
 - `LIMIT`
 - Funções de agregação
 
+## Exemplos de uso
+
+### Cadastro de autor
+
+No menu principal:
+
+```text
+1. Autores
+```
+
+Depois, selecione a opção de cadastro e informe o nome do autor.
+
+### Cadastro de livro
+
+No menu principal:
+
+```text
+2. Livros
+```
+
+Informe o título, a quantidade disponível e o ID de um autor já cadastrado.
+
+### Cadastro de cliente
+
+No menu principal:
+
+```text
+3. Clientes
+```
+
+Informe o nome do cliente.
+
+### Registro de empréstimo
+
+No menu principal:
+
+```text
+4. Empréstimos
+```
+
+Informe o ID do livro e o ID do cliente. O sistema verifica se ambos existem e se o livro possui quantidade disponível.
+
+### Relatórios
+
+No menu principal:
+
+```text
+5. Relatórios
+```
+
+O sistema apresenta as opções de consulta disponíveis, incluindo livros disponíveis, livros emprestados, livros por autor, quantidade de empréstimos por livro e clientes com empréstimos ativos.
+
 ## Git
 
 O projeto utiliza Git para controle de versão e GitHub para armazenamento do repositório.
@@ -252,6 +308,16 @@ feat/clientes
 feat/emprestimos
 docs/readme
 ```
+
+## Kanban
+
+O acompanhamento das tarefas do projeto é realizado através do Trello:
+
+https://trello.com/b/lSydOqyL/gerente-de-livraria-cli
+
+## Integrante
+
+- Gustavo
 
 ## Autor
 

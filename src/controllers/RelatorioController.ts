@@ -1,3 +1,10 @@
+import {
+  ClienteComEmprestimosAtivos,
+  LivroDisponivel,
+  LivroEmprestado,
+  LivroPorAutor,
+  QuantidadeEmprestimosPorLivro,
+} from "../repositories/RelatorioRepository";
 import { RelatorioService } from "../services/RelatorioService";
 
 export class RelatorioController {
@@ -18,7 +25,7 @@ export class RelatorioController {
 
       console.log("\n=== LIVROS DISPONÍVEIS ===");
 
-      livros.forEach((livro: any) => {
+      livros.forEach((livro: LivroDisponivel) => {
         console.log(
           `${livro.id} - ${livro.titulo} | Autor: ${livro.autor} | Quantidade: ${livro.quantidade}`,
         );
@@ -39,7 +46,7 @@ export class RelatorioController {
 
       console.log("\n=== LIVROS EMPRESTADOS ===");
 
-      livros.forEach((livro: any) => {
+      livros.forEach((livro: LivroEmprestado) => {
         console.log(
           `${livro.id} - ${livro.titulo} | Autor: ${livro.autor} | Cliente: ${livro.cliente} | Empréstimo: ${new Date(
             livro.data_emprestimo,
@@ -62,8 +69,8 @@ export class RelatorioController {
 
       console.log("\n=== LIVROS POR AUTOR ===");
 
-      livros.forEach((livro: any) => {
-        if (livro.livro_id) {
+      livros.forEach((livro: LivroPorAutor) => {
+        if (livro.livro_id !== null) {
           console.log(`${livro.autor} - ${livro.titulo}`);
         } else {
           console.log(`${livro.autor} - Nenhum livro cadastrado`);
@@ -86,7 +93,7 @@ export class RelatorioController {
 
       console.log("\n=== QUANTIDADE DE EMPRÉSTIMOS POR LIVRO ===");
 
-      livros.forEach((livro: any) => {
+      livros.forEach((livro: QuantidadeEmprestimosPorLivro) => {
         console.log(
           `${livro.id} - ${livro.titulo} | Empréstimos: ${livro.quantidade_emprestimos}`,
         );
@@ -108,7 +115,7 @@ export class RelatorioController {
 
       console.log("\n=== CLIENTES COM EMPRÉSTIMOS ATIVOS ===");
 
-      clientes.forEach((cliente: any) => {
+      clientes.forEach((cliente: ClienteComEmprestimosAtivos) => {
         console.log(
           `${cliente.id} - ${cliente.cliente} | Empréstimos ativos: ${cliente.quantidade_emprestimos}`,
         );
