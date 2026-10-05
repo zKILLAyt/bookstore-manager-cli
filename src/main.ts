@@ -13,6 +13,11 @@ import { ClienteRepository } from "./repositories/ClienteRepository";
 import { ClienteService } from "./services/ClienteService";
 import { ClienteMenu } from "./menus/ClienteMenu";
 
+import { EmprestimoController } from "./controllers/EmprestimoController";
+import { EmprestimoRepository } from "./repositories/EmprestimoRepository";
+import { EmprestimoService } from "./services/EmprestimoService";
+import { EmprestimoMenu } from "./menus/EmprestimoMenu";
+
 async function main(): Promise<void> {
   const autorRepository = new AutorRepository();
   const autorService = new AutorService(autorRepository);
@@ -29,9 +34,21 @@ async function main(): Promise<void> {
   const clienteController = new ClienteController(clienteService);
   const clienteMenu = new ClienteMenu(clienteController);
 
+  const emprestimoRepository = new EmprestimoRepository();
+
+  const emprestimoService = new EmprestimoService(
+    emprestimoRepository,
+    livroRepository,
+    clienteRepository,
+  );
+
+  const emprestimoController = new EmprestimoController(emprestimoService);
+  const emprestimoMenu = new EmprestimoMenu(emprestimoController);
+
   await autorMenu.iniciar();
   await livroMenu.iniciar();
   await clienteMenu.iniciar();
+  await emprestimoMenu.iniciar();
 }
 
 main();
