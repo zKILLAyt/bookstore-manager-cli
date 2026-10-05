@@ -1,8 +1,42 @@
 import { pool } from "../database/connection";
 
+export interface LivroDisponivel {
+  id: number;
+  titulo: string;
+  autor: string;
+  quantidade: number;
+}
+
+export interface LivroEmprestado {
+  id: number;
+  titulo: string;
+  autor: string;
+  cliente: string;
+  data_emprestimo: Date;
+}
+
+export interface LivroPorAutor {
+  id: number;
+  autor: string;
+  livro_id: number | null;
+  titulo: string | null;
+}
+
+export interface QuantidadeEmprestimosPorLivro {
+  id: number;
+  titulo: string;
+  quantidade_emprestimos: number;
+}
+
+export interface ClienteComEmprestimosAtivos {
+  id: number;
+  cliente: string;
+  quantidade_emprestimos: number;
+}
+
 export class RelatorioRepository {
-  async listarLivrosDisponiveis(): Promise<unknown[]> {
-    const result = await pool.query(
+  async listarLivrosDisponiveis(): Promise<LivroDisponivel[]> {
+    const result = await pool.query<LivroDisponivel>(
       `SELECT
          livros.id,
          livros.titulo,
@@ -19,8 +53,8 @@ export class RelatorioRepository {
     return result.rows;
   }
 
-  async listarLivrosEmprestados(): Promise<unknown[]> {
-    const result = await pool.query(
+  async listarLivrosEmprestados(): Promise<LivroEmprestado[]> {
+    const result = await pool.query<LivroEmprestado>(
       `SELECT
          livros.id,
          livros.titulo,
@@ -42,8 +76,8 @@ export class RelatorioRepository {
     return result.rows;
   }
 
-  async listarLivrosPorAutor(): Promise<unknown[]> {
-    const result = await pool.query(
+  async listarLivrosPorAutor(): Promise<LivroPorAutor[]> {
+    const result = await pool.query<LivroPorAutor>(
       `SELECT
          autores.id,
          autores.nome AS autor,
@@ -59,8 +93,10 @@ export class RelatorioRepository {
     return result.rows;
   }
 
-  async listarQuantidadeEmprestimosPorLivro(): Promise<unknown[]> {
-    const result = await pool.query(
+  async listarQuantidadeEmprestimosPorLivro(): Promise<
+    QuantidadeEmprestimosPorLivro[]
+  > {
+    const result = await pool.query<QuantidadeEmprestimosPorLivro>(
       `SELECT
          livros.id,
          livros.titulo,
@@ -76,8 +112,10 @@ export class RelatorioRepository {
     return result.rows;
   }
 
-  async listarClientesComEmprestimosAtivos(): Promise<unknown[]> {
-    const result = await pool.query(
+  async listarClientesComEmprestimosAtivos(): Promise<
+    ClienteComEmprestimosAtivos[]
+  > {
+    const result = await pool.query<ClienteComEmprestimosAtivos>(
       `SELECT
          clientes.id,
          clientes.nome AS cliente,
